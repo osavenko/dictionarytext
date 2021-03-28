@@ -19,17 +19,23 @@ public class Main {
             choice = ConsoleUtilites.readText();
             if (choice.equals("4")) {
                 printState();
-            } else if (choice.equals("4")) {
-
+            } else if (choice.equals("5")) {
+                text = null;
+                words = null;
+                pears = null;
                 System.out.println("Сброшено состояние!");
             } else if (!choice.equals("") & !choice.equals("10")) {
                 Command command = ChoicerCommand.getCommand(choice);
                 if (command instanceof ConsoleTextReaderCommand) {
                     text = command.execute(new NullParameter());
                 } else if (command instanceof WordsParserFromTextCommand) {
-                    words = command.execute(text);
+                    if (text != null) {
+                        words = command.execute(text);
+                    }
                 } else if (command instanceof WordsParserFromInternetCommand) {
-                    pears = command.execute(words);
+                    if (words != null) {
+                        pears = command.execute(words);
+                    }
                 }
             } else {
                 break;
@@ -57,7 +63,7 @@ public class Main {
                 System.out.println(pears.getKey() +
                         '(' +
                         pears.getValue().stream()
-                                .collect(Collectors.joining(", "))+')');
+                                .collect(Collectors.joining(", ")) + ')');
             });
         }
     }

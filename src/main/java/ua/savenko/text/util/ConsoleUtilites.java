@@ -15,6 +15,7 @@ public class ConsoleUtilites {
         System.out.println("2. Парсить слова из текста.");
         System.out.println("3. Парсить(искать) слова из интернета.");
         System.out.println("4. Печать состояние программы.");
+        System.out.println("5. Сбросить состояние.");
         System.out.println("10. Выход.");
         System.out.print("-> ");
     }
