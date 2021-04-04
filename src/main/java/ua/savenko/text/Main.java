@@ -2,7 +2,7 @@ package ua.savenko.text;
 
 import ua.savenko.text.command.*;
 import ua.savenko.text.model.*;
-import ua.savenko.text.util.ConsoleUtilites;
+import ua.savenko.text.util.ConsoleUtil;
 
 import java.util.stream.Collectors;
 
@@ -15,33 +15,41 @@ public class Main {
     public static void main(String[] args) {
         String choice = "";
         do {
-            ConsoleUtilites.printMenu();
-            choice = ConsoleUtilites.readText();
+            ConsoleUtil.printMenu();
+            choice = ConsoleUtil.readText();
             if (choice.equals("4")) {
                 printState();
             } else if (choice.equals("5")) {
-                text = null;
-                words = null;
-                pears = null;
-                System.out.println("Сброшено состояние!");
+                clearState();
             } else if (!choice.equals("") & !choice.equals("10")) {
-                Command command = ChoicerCommand.getCommand(choice);
-                if (command instanceof ConsoleTextReaderCommand) {
-                    text = command.execute(new NullParameter());
-                } else if (command instanceof WordsParserFromTextCommand) {
-                    if (text != null) {
-                        words = command.execute(text);
-                    }
-                } else if (command instanceof WordsParserFromInternetCommand) {
-                    if (words != null) {
-                        pears = command.execute(words);
-                    }
-                }
+                doCommand(choice);
             } else {
                 break;
             }
         } while (true);
         System.out.println("До скорой встречи!");
+    }
+
+    private static void doCommand(String choice) {
+        Command command = ChoicerCommand.getCommand(choice);
+        if (command instanceof ConsoleTextReaderCommand) {
+            text = command.execute(new NullParameter());
+        } else if (command instanceof WordsParserFromTextCommand) {
+            if (text != null) {
+                words = command.execute(text);
+            }
+        } else if (command instanceof WordsParserFromInternetCommand) {
+            if (words != null) {
+                pears = command.execute(words);
+            }
+        }
+    }
+
+    private static void clearState() {
+        text = null;
+        words = null;
+        pears = null;
+        System.out.println("Сброшено состояние!");
     }
 
     private static void printState() {

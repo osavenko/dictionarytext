@@ -2,7 +2,7 @@ package ua.savenko.text.util;
 
 import java.util.Scanner;
 
-public class ConsoleUtilites {
+public class ConsoleUtil {
 
     public static String readText() {
         Scanner scanner = new Scanner(System.in);
